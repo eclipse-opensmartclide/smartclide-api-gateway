@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: route1
+          uri: https://dle.dev.smartclide.eu
+          predicates:
+            - Path=/dle
+          filters:
+            - SetPath=/api
+        - id: route2
+          uri: https://rmv.dev.smartclide.eu
+          predicates:
+            - Path=/rmv
+          filters:
+            - SetPath=/api
