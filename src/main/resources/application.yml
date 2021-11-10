@@ -7,12 +7,12 @@ spring:
         - id: route1
           uri: https://dle.dev.smartclide.eu
           predicates:
-            - Path=/dle
+            - Path=/api/dle
           filters:
             - SetPath=/api
         - id: route2
           uri: https://rmv.dev.smartclide.eu
           predicates:
-            - Path=/rmv
+            - Path=/api/rmv
           filters:
             - SetPath=/api
