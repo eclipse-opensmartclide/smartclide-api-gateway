@@ -1,18 +1,31 @@
 server:
   port: 9090
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak-smartclide-che.che.smartclide.eu/auth/realms/che
   cloud:
     gateway:
       routes:
-        - id: route1
+        - id: dle
           uri: https://dle.dev.smartclide.eu
           predicates:
             - Path=/api/dle
           filters:
             - SetPath=/api
-        - id: route2
+        - id: rmv
           uri: https://rmv.dev.smartclide.eu
           predicates:
             - Path=/api/rmv
           filters:
             - SetPath=/api
+        - id: rest_websocket
+          uri: http://api:8080
+          predicates:
+            - Path=/mom/**
+        - id: websocket
+          uri: ws://api:8080
+          predicates:
+            - Path=/websocket
