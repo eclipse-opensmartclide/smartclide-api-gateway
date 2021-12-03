@@ -1,4 +1,4 @@
-FROM openjdk:11.0.12-jdk-oracle
-COPY target/spring-cloud-gateway-security-0.0.1-SNAPSHOT.jar spring-cloud-gateway-security-0.0.1-SNAPSHOT.jar
+FROM adoptopenjdk:11-jre-hotspot
+ADD target/*.jar app.jar
 EXPOSE 9090
-ENTRYPOINT ["java","-jar","/spring-cloud-gateway-security-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]

@@ -1,5 +1,9 @@
 server:
   port: 9090
+eu:
+  smartclide:
+    api:
+      host: api
 spring:
   security:
     oauth2:
@@ -22,10 +26,10 @@ spring:
           filters:
             - SetPath=/api
         - id: rest_websocket
-          uri: http://api:8080
+          uri: http://${eu.smartclide.api.host}:8080
           predicates:
             - Path=/mom/**
         - id: websocket
-          uri: ws://api:8080
+          uri: ws://${eu.smartclide.api.host}:8080
           predicates:
             - Path=/websocket
