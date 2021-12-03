@@ -33,3 +33,15 @@ spring:
           uri: ws://${eu.smartclide.api.host}:8080
           predicates:
             - Path=/websocket
+        - id: typicode
+          uri: https://jsonplaceholder.typicode.com
+          predicates:
+            - Path=/typicode/**
+          filters:
+            - RewritePath=/typicode/?(?<segment>.*), /$\{segment}
+        - id: petstore
+          uri: https://petstore.swagger.io
+          predicates:
+            - Path=/petstore/**
+          filters:
+            - RewritePath=/petstore/?(?<segment>.*), /v2/$\{segment}
