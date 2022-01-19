@@ -1,9 +1,5 @@
 server:
   port: 9090
-eu:
-  smartclide:
-    api:
-      host: api
 spring:
   security:
     oauth2:
@@ -13,26 +9,6 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: dle
-          uri: https://dle.dev.smartclide.eu
-          predicates:
-            - Path=/api/dle
-          filters:
-            - SetPath=/api
-        - id: rmv
-          uri: https://rmv.dev.smartclide.eu
-          predicates:
-            - Path=/api/rmv
-          filters:
-            - SetPath=/api
-        - id: rest_websocket
-          uri: http://${eu.smartclide.api.host}:8080
-          predicates:
-            - Path=/mom/**
-        - id: websocket
-          uri: ws://${eu.smartclide.api.host}:8080
-          predicates:
-            - Path=/websocket
         - id: typicode
           uri: https://jsonplaceholder.typicode.com
           predicates:
