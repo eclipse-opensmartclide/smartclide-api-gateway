@@ -1,5 +1,9 @@
 server:
   port: 9090
+eu:
+  smartclide:
+    api:
+      host: localhost
 spring:
   security:
     oauth2:
@@ -21,3 +25,11 @@ spring:
             - Path=/petstore/**
           filters:
             - RewritePath=/petstore/?(?<segment>.*), /v2/$\{segment}
+        - id: rest_websocket
+          uri: http://${eu.smartclide.api.host}:8080
+          predicates:
+            - Path=/mom/**
+        - id: websocket
+          uri: ws://${eu.smartclide.api.host}:8080
+          predicates:
+            - Path=/websocket
