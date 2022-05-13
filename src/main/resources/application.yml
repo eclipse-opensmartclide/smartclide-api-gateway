@@ -13,23 +13,165 @@ spring:
   cloud:
     gateway:
       routes:
+        # MoM Rest API
+        - id: mom-rest
+          uri: http://mom-api.smartclide-mom:8080
+          predicates:
+            - Path=/mom/**
+        # MoM Websocket
+        - id: mom-websocket
+          uri: ws://mom-api.smartclide-mom:8080
+          predicates:
+            - Path=/websocket
+        ### Old routes to smartclide backend components
+        ### TODO: remove
+        # Smart-Assistant Rest API
+        - id: smart-assistant-deprecated
+          uri: http://dle-smartassistant.smartclide-dle:5000
+          predicates:
+            - Path=/smart-assistant-deprecated/**
+          filters:
+            - RewritePath=/smart-assistant-deprecated/?(?<segment>.*), /$\{segment}
+        # DLE Rest API
+        - id: dle-deprecated
+          uri: http://dle-dle.smartclide-dle:5001
+          predicates:
+            - Path=/dle-deprecated/**
+          filters:
+            - RewritePath=/dle-deprecated/?(?<segment>.*), /$\{segment}
+        # service-discovery Rest API
+        - id: service-discovery-deprecated
+          uri: http://service-discovery.smartclide-service-discovery:2020
+          predicates:
+            - Path=/service-discovery-deprecated/**
+          filters:
+            - RewritePath=/service-discovery-deprecated/?(?<segment>.*), /$\{segment}
+        # Service Creation Rest API
+        - id: service-creation-deprecated
+          uri: http://service-creation.smartclide-service-creation:8080
+          predicates:
+            - Path=/service-creation-deprecated/**
+          filters:
+            - RewritePath=/service-creation-deprecated/?(?<segment>.*), /$\{segment}
+        # TD Interest REST API
+        - id: td-interest-deprecated
+          uri: http://td-interest.smartclide-td:8080
+          predicates:
+            - Path=/td-interest-deprecated/**
+          filters:
+            - RewritePath=/td-interest-deprecated/?(?<segment>.*), /$\{segment}
+        # TD Principal REST API
+        - id: td-principal-deprecated
+          uri: http://td-principal.smartclide-td:8555
+          predicates:
+            - Path=/td-principal-deprecated/**
+          filters:
+            - RewritePath=/td-principal-deprecated/?(?<segment>.*), /$\{segment}
+        # TD Reusability REST API
+        - id: td-reusability-deprecated
+          uri: http://td-reusability.smartclide-td:8080
+          predicates:
+            - Path=/td-reusability-deprecated/**
+          filters:
+            - RewritePath=/td-reusability-deprecated/?(?<segment>.*), /$\{segment}
+        ### New refined routes for smartclide backend components
+        # Smart-Assistant Rest API new route
+        - id: smart-assistant-refined
+          uri: http://dle-smartassistant.smartclide-dle:5000
+          predicates:
+            - Path=/smart-assistant/**
+          filters:
+            - RewritePath=/smart-assistant/?(?<segment>.*), /smartclide/v1/smartassistant/$\{segment}
+        # DLE Rest API new route
+        - id: dle-refined
+          uri: http://dle-dle.smartclide-dle:5001
+          predicates:
+            - Path=/dle/**
+          filters:
+            - RewritePath=/dle/?(?<segment>.*), /smartclide/v1/dle/$\{segment}
+        # service-discovery Rest API new route
+        # TODO: Get API documentation and adjust RewritePath filter accordingly if needed
+        - id: service-discovery-refined
+          uri: http://service-discovery.smartclide-service-discovery:2020
+          predicates:
+            - Path=/service-discovery/**
+          filters:
+            - RewritePath=/service-discovery/?(?<segment>.*), /servicediscovery/v1/$\{segment}
+        # Service Creation Rest API new route
+        - id: service-creation-refined
+          uri: http://service-creation.smartclide-service-creation:8080
+          predicates:
+            - Path=/service-creation/**
+          filters:
+            - RewritePath=/service-creation/?(?<segment>.*), /$\{segment}
+        # TD Interest REST API new route
+        - id: td-interest-refined
+          uri: http://td-interest.smartclide-td:8080
+          predicates:
+            - Path=/td-interest/**
+          filters:
+            - RewritePath=/td-interest/?(?<segment>.*), /api/$\{segment}
+        # TD Principal REST API new route
+        - id: td-principal-refined
+          uri: http://td-principal.smartclide-td:8555
+          predicates:
+            - Path=/td-principal/**
+          filters:
+            - RewritePath=/td-principal/?(?<segment>.*), /api/$\{segment}
+        # TD Reusability REST API new route
+        - id: td-reusability-refined
+          uri: http://td-reusability.smartclide-td:8080
+          predicates:
+            - Path=/td-reusability/**
+          filters:
+            - RewritePath=/td-reusability/?(?<segment>.*), /api/$\{segment}
+        ### SmartCLIDE-internal test APIs
+        ### TODO: remove
+        # DEMO-DLE Rest API
+        - id: dle-test
+          uri: http://demo-dle.smartclide-context:8080
+          predicates:
+            - Path=/demo-dle/**
+          filters:
+            - RewritePath=/demo-dle/?(?<segment>.*), /$\{segment}
+        # DEMO-RMV Rest API
+        - id: rmv-test
+          uri: http://demo-rmv.smartclide-context:9000
+          predicates:
+            - Path=/demo-rmv/**
+          filters:
+            - RewritePath=/demo-rmv/?(?<segment>.*), /$\{segment}
+        # jkube-test Rest API
+        - id: jkube-test
+          uri: http://jkube-test.jkube-test:9000
+          predicates:
+            - Path=/jkube-test/**
+          filters:
+            - RewritePath=/jkube-test/?(?<segment>.*), /$\{segment}
+        # Smart-Assistant-test Rest API
+        - id: smart-assistant-test
+          uri: http://smartclide.ddns.net:5000
+          predicates:
+            - Path=/smart-assistant-test/**
+          filters:
+            - RewritePath=/smart-assistant-test/?(?<segment>.*), /smartclide/v1/smartassistant/$\{segment}
+        ### General test APIs to ensure that SmartCLIDE API gateway redirecting is working as expected
+        ### TODO: remove
         - id: typicode
           uri: https://jsonplaceholder.typicode.com
           predicates:
             - Path=/typicode/**
           filters:
             - RewritePath=/typicode/?(?<segment>.*), /$\{segment}
+        - id: typicode-albums
+          uri: https://jsonplaceholder.typicode.com
+          predicates:
+            - Path=/albums/**
+          filters:
+            - RewritePath=/albums/?(?<segment>.*), /albums/$\{segment}
         - id: petstore
           uri: https://petstore.swagger.io
           predicates:
             - Path=/petstore/**
           filters:
             - RewritePath=/petstore/?(?<segment>.*), /v2/$\{segment}
-        - id: rest_websocket
-          uri: http://${eu.smartclide.api.host}:8080
-          predicates:
-            - Path=/mom/**
-        - id: websocket
-          uri: ws://${eu.smartclide.api.host}:8080
-          predicates:
-            - Path=/websocket
