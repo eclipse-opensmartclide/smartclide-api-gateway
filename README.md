@@ -12,9 +12,6 @@ The SmartCLIDE API Gateway defines the following common interface for SmartCLIDE
 
 **https://api.dev.smartclide.eu/{component_name}/{component_resource}**
 
-https://api.dev.smartclide.eu/dle/codegen (instead of
-https://api.dev.smartclide.eu/dle/smartclide/v1/dle/codegen),
-
 Examples:
 
 - **Jave code generation (POST endpoint from the DLE RESTful API)**:
