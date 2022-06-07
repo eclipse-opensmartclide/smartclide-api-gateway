@@ -125,6 +125,20 @@ spring:
             - Path=/td-reusability/**
           filters:
             - RewritePath=/td-reusability/?(?<segment>.*), /api/$\{segment}
+        # SmartCLIDE-DB Rest API new route
+        - id: smartclide-db
+          uri: http://db-api.smartclide-db:8080
+          predicates:
+            - Path=/smartclide-db/**
+          filters:
+            - RewritePath=/smartclide-db/?(?<segment>.*), /$\{segment}
+        # Service Creation Test Generation Rest API
+        - id: service-creation-test-generation
+          uri: http://service-creation-test-generation.smartclide-service-creation:8080
+          predicates:
+            - Path=/service-creation-test-generation/**
+          filters:
+            - RewritePath=/service-creation-test-generation/?(?<segment>.*), /$\{segment}
         ### SmartCLIDE-internal test APIs
         ### TODO: remove
         # DEMO-DLE Rest API
