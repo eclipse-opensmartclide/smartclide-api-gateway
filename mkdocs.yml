@@ -1,0 +1,5 @@
+site_name: SmartCLIDE API Gateway Component
+repo_url: https://github.com/eclipse-researchlabs/smartclide-api-gateway
+
+nav:
+  - API Gateway: 'index.md'
