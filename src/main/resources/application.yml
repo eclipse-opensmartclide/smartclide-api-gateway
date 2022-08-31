@@ -12,6 +12,12 @@ spring:
           issuer-uri: https://keycloak-smartclide-che.che.smartclide.eu/auth/realms/che
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
       routes:
         # MoM Rest API
         - id: mom-rest
@@ -189,3 +195,4 @@ spring:
             - Path=/petstore/**
           filters:
             - RewritePath=/petstore/?(?<segment>.*), /v2/$\{segment}
+
