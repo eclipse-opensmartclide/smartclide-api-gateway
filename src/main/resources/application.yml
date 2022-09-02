@@ -13,11 +13,15 @@ spring:
   cloud:
     gateway:
       globalcors:
+        add-to-simple-url-handler-mapping: true
         corsConfigurations:
           '[/**]':
+            allowCredentials: true
             allowedOrigins: "*"
             allowedHeaders: "*"
             allowedMethods: "*"
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       routes:
         # MoM Rest API
         - id: mom-rest
@@ -81,6 +85,13 @@ spring:
           filters:
             - RewritePath=/td-reusability-deprecated/?(?<segment>.*), /$\{segment}
         ### New refined routes for smartclide backend components
+        # SmartCLIDE-DB Rest API new route
+        - id: smartclide-db
+          uri: http://db-api.smartclide-db:8080
+          predicates:
+            - Path=/smartclide-db/**
+          filters:
+            - RewritePath=/smartclide-db/?(?<segment>.*), /$\{segment}
         # Smart-Assistant Rest API new route
         - id: smart-assistant-refined
           uri: http://dle-smartassistant.smartclide-dle:5000
@@ -88,6 +99,34 @@ spring:
             - Path=/smart-assistant/**
           filters:
             - RewritePath=/smart-assistant/?(?<segment>.*), /smartclide/v1/smartassistant/$\{segment}
+        # CICD REST API
+        - id: cicd-refined
+          uri: http://cicd.smartclide-cicd:8080
+          predicates:
+            - Path=/cicd/**
+          filters:
+            - RewritePath=/cicd/?(?<segment>.*), /cicd/$\{segment}
+        # Deployment-Interpreter REST API
+        - id: deployment-interpreter-refined
+          uri: http://deployment-interpreter.smartclide-deployment-interpreter:8080
+          predicates:
+            - Path=/deployment-interpreter/**
+          filters:
+            - RewritePath=/deployment-interpreter/?(?<segment>.*), /$\{segment}
+        # Deployment-Service REST API
+        - id: deployment-service-refined
+          uri: http://deployment-service.smartclide-deployment-service:3000
+          predicates:
+            - Path=/deployment-service/**
+          filters:
+            - RewritePath=/deployment-service/?(?<segment>.*), /$\{segment}
+        # External-Project-Importer REST API
+        - id: external-project-importer-refined
+          uri: http://external-project-importer.smartclide-external-project-importer:8080
+          predicates:
+            - Path=/external-project-importer/**
+          filters:
+            - RewritePath=/external-project-importer/?(?<segment>.*), /$\{segment}
         # DLE Rest API new route
         - id: dle-refined
           uri: http://dle-dle.smartclide-dle:5001
@@ -110,6 +149,13 @@ spring:
             - Path=/service-creation/**
           filters:
             - RewritePath=/service-creation/?(?<segment>.*), /$\{segment}
+        # Service Creation Test Generation Rest API
+        - id: service-creation-test-generation
+          uri: http://service-creation-test-generation.smartclide-service-creation:8080
+          predicates:
+            - Path=/service-creation-test-generation/**
+          filters:
+            - RewritePath=/service-creation-test-generation/?(?<segment>.*), /$\{segment}
         # TD Interest REST API new route
         - id: td-interest-refined
           uri: http://td-interest.smartclide-td:8080
@@ -131,20 +177,6 @@ spring:
             - Path=/td-reusability/**
           filters:
             - RewritePath=/td-reusability/?(?<segment>.*), /api/$\{segment}
-        # SmartCLIDE-DB Rest API new route
-        - id: smartclide-db
-          uri: http://db-api.smartclide-db:8080
-          predicates:
-            - Path=/smartclide-db/**
-          filters:
-            - RewritePath=/smartclide-db/?(?<segment>.*), /$\{segment}
-        # Service Creation Test Generation Rest API
-        - id: service-creation-test-generation
-          uri: http://service-creation-test-generation.smartclide-service-creation:8080
-          predicates:
-            - Path=/service-creation-test-generation/**
-          filters:
-            - RewritePath=/service-creation-test-generation/?(?<segment>.*), /$\{segment}
         ### SmartCLIDE-internal test APIs
         ### TODO: remove
         # DEMO-DLE Rest API
