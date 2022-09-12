@@ -13,15 +13,11 @@ spring:
   cloud:
     gateway:
       globalcors:
-        add-to-simple-url-handler-mapping: true
         corsConfigurations:
           '[/**]':
-            allowCredentials: true
             allowedOrigins: "*"
             allowedHeaders: "*"
             allowedMethods: "*"
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       routes:
         # MoM Rest API
         - id: mom-rest
