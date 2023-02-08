@@ -33,10 +33,20 @@ Examples:
 
 The SmartCLIDE API Gateway supports the following {component_name} elements:
 
+- **mom**
+- **websocket**
+- **smartclide-db**
+- **smart-assistant**
+- **cicd**
+- **deployment-interpreter**
+- **deployment-service**
+- **external-project-importer**
+- **dle**
+- **iamodeler**
+- **service-discovery**
+- **service-creation**
+- **service-creation-test-generation**
 - **td-interest**
 - **td-principal**
 - **td-reusability**
-- **service-creation**
-- **dle**
-- **smart-assistant**
-- **service-creation-test-generation**
+- **architectural-patterns**
