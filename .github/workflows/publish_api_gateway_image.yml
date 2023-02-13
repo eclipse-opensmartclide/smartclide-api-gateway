@@ -1,23 +1,23 @@
-name: ci
+name: OpenSmartCLIDE API Gateway CI/CD pipeline
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  publish_mom_image:
+  publish_opensmartclide_api_gateway_image:
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          java-version: '17'
+          distribution: 'temurin'
           cache: maven
 
       - name: Build with Maven
