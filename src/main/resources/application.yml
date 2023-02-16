@@ -128,3 +128,10 @@ spring:
             - Path=/architectural-patterns/**
           filters:
             - RewritePath=/architectural-patterns/?(?<segment>.*), /$\{segment}
+        # Security Module
+        - id: security
+          uri: security.smartclide-security:8080
+          predicates:
+            - Path=/security/**
+          filters:
+            - RewritePath=/security/?(?<segment>.*), /smartclide/$\{segment}
