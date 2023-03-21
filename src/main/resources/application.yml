@@ -130,8 +130,15 @@ spring:
             - RewritePath=/architectural-patterns/?(?<segment>.*), /$\{segment}
         # Security Module
         - id: security
-          uri: security.smartclide-security:8080
+          uri: http://security-ssas.smartclide-security:8080
           predicates:
             - Path=/security/**
           filters:
             - RewritePath=/security/?(?<segment>.*), /smartclide/$\{segment}
+        # Vulnerability Assessment Module
+        - id: vam
+          uri: http://security-vam.smartclide-security:5008
+          predicates:
+            - Path=/vam/**
+          filters:
+            - RewritePath=/vam/?(?<segment>.*), /$\{segment}
